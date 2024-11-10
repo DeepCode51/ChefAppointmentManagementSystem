@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 配置Mabatis映射文件 -->
+<mapper namespace="com.dao.TeacherDAO">
+	<resultMap type="teacher" id="teacherMap">
+		<id property="teacherid" column="teacherid" />
+		<result property="username" column="username" />
+		<result property="password" column="password" />
+		<result property="teachername" column="teachername" />
+		<result property="sex" column="sex" />
+		<result property="birthday" column="birthday" />
+		<result property="image" column="image" />
+		<result property="workdate" column="workdate" />
+		<result property="contact" column="contact" />
+		<result property="contents" column="contents" />
+	</resultMap>
+	<!-- 插入语句 DAO通过id调用此配置 -->
+	<insert id="insertTeacher" parameterType="teacher">
+		insert into teacher(teacherid , username , password , teachername , sex , birthday , image , workdate , contact , contents ) values(#{teacherid} , #{username} ,
+		#{password} , #{teachername} , #{sex} , #{birthday} , #{image} , #{workdate} , #{contact} , #{contents} )
+	</insert>
+	<!-- 更新语句 DAO通过id调用此配置 -->
+	<update id="updateTeacher" parameterType="teacher">
+		update teacher set username=#{username} , password=#{password} , teachername=#{teachername} , sex=#{sex} , birthday=#{birthday} , image=#{image} ,
+		workdate=#{workdate} , contact=#{contact} , contents=#{contents} where teacherid=#{teacherid}
+	</update>
+	<!-- 按主键删除 DAO通过id调用此配置 -->
+	<delete id="deleteTeacher" parameterType="String">
+		delete from teacher where teacherid = #{teacherid}
+	</delete>
+	<!-- 查询全部信息 DAO通过id调用此配置 -->
+	<select id="getAllTeacher" resultMap="teacherMap">
+		select a.* from teacher a order by teacherid desc
+	</select>
+	<select id="getFrontTeacher" resultMap="teacherMap">
+		select a.* from teacher a order by teacherid desc limit 5
+	</select>
+	<!-- 按主键查询 DAO通过id调用此配置 -->
+	<select id="getTeacherById" parameterType="String" resultMap="teacherMap">
+		select a.* from teacher a where teacherid=#{teacherid} order by teacherid desc
+	</select>
+	<!-- 按条件精确查询 DAO通过id调用此配置 -->
+	<select id="getTeacherByCond" parameterType="teacher" resultMap="teacherMap">
+		select a.* from teacher a where 1=1
+		<if test="username != null and '' != username">
+			and a.username = #{username}
+		</if>
+		<if test="password != null and '' != password">
+			and a.password = #{password}
+		</if>
+		<if test="teachername != null and '' != teachername">
+			and a.teachername = #{teachername}
+		</if>
+		<if test="sex != null and '' != sex">
+			and a.sex = #{sex}
+		</if>
+		<if test="birthday != null and '' != birthday">
+			and a.birthday = #{birthday}
+		</if>
+		<if test="image != null and '' != image">
+			and a.image = #{image}
+		</if>
+		<if test="workdate != null and '' != workdate">
+			and a.workdate = #{workdate}
+		</if>
+		<if test="contact != null and '' != contact">
+			and a.contact = #{contact}
+		</if>
+		<if test="contents != null and '' != contents">
+			and a.contents = #{contents}
+		</if>
+	</select>
+	<!-- 按条件模糊查询 DAO通过id调用此配置 -->
+	<select id="getTeacherByLike" parameterType="teacher" resultMap="teacherMap">
+		select a.* from teacher a where 1=1
+		<if test="username != null and '' != username">
+			and a.username like CONCAT('%', CONCAT(#{username}, '%'))
+		</if>
+		<if test="password != null and '' != password">
+			and a.password like CONCAT('%', CONCAT(#{password}, '%'))
+		</if>
+		<if test="teachername != null and '' != teachername">
+			and a.teachername like CONCAT('%', CONCAT(#{teachername}, '%'))
+		</if>
+		<if test="sex != null and '' != sex">
+			and a.sex like CONCAT('%', CONCAT(#{sex}, '%'))
+		</if>
+		<if test="birthday != null and '' != birthday">
+			and a.birthday like CONCAT('%', CONCAT(#{birthday}, '%'))
+		</if>
+		<if test="image != null and '' != image">
+			and a.image like CONCAT('%', CONCAT(#{image}, '%'))
+		</if>
+		<if test="workdate != null and '' != workdate">
+			and a.workdate like CONCAT('%', CONCAT(#{workdate}, '%'))
+		</if>
+		<if test="contact != null and '' != contact">
+			and a.contact like CONCAT('%', CONCAT(#{contact}, '%'))
+		</if>
+		<if test="contents != null and '' != contents">
+			and a.contents like CONCAT('%', CONCAT(#{contents}, '%'))
+		</if>
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--  -->

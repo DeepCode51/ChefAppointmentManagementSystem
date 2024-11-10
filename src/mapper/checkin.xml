@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 配置Mabatis映射文件 -->
+<mapper namespace="com.dao.CheckinDAO">
+	<resultMap type="checkin" id="checkinMap">
+		<id property="checkinid" column="checkinid" />
+		<result property="teacherid" column="teacherid" />
+		<result property="courseid" column="courseid" />
+		<result property="usersid" column="usersid" />
+		<result property="addtime" column="addtime" />
+		<result property="memo" column="memo" />
+		<result property="teachername" column="teachername" />
+		<result property="coursename" column="coursename" />
+		<result property="username" column="username" />
+	</resultMap>
+	<!-- 插入语句 DAO通过id调用此配置 -->
+	<insert id="insertCheckin" parameterType="checkin">
+		insert into checkin(checkinid , teacherid , courseid , usersid , addtime , memo ) values(#{checkinid} , #{teacherid} , #{courseid} , #{usersid} , #{addtime} ,
+		#{memo} )
+	</insert>
+	<!-- 更新语句 DAO通过id调用此配置 -->
+	<update id="updateCheckin" parameterType="checkin">
+		update checkin set teacherid=#{teacherid} , courseid=#{courseid} , usersid=#{usersid} , addtime=#{addtime} , memo=#{memo} where checkinid=#{checkinid}
+	</update>
+	<!-- 按主键删除 DAO通过id调用此配置 -->
+	<delete id="deleteCheckin" parameterType="String">
+		delete from checkin where checkinid = #{checkinid}
+	</delete>
+	<!-- 查询全部信息 DAO通过id调用此配置 -->
+	<select id="getAllCheckin" resultMap="checkinMap">
+		select a.* , b.teachername , c.coursename , d.username from checkin a , teacher b , course c , users d where a.teacherid = b.teacherid and a.courseid = c.courseid
+		and a.usersid = d.usersid order by checkinid desc
+	</select>
+	<!-- 按主键查询 DAO通过id调用此配置 -->
+	<select id="getCheckinById" parameterType="String" resultMap="checkinMap">
+		select a.* , b.teachername , c.coursename , d.username from checkin a , teacher b , course c , users d where a.teacherid = b.teacherid and a.courseid = c.courseid
+		and a.usersid = d.usersid and checkinid=#{checkinid} order by checkinid desc
+	</select>
+	<!-- 按条件精确查询 DAO通过id调用此配置 -->
+	<select id="getCheckinByCond" parameterType="checkin" resultMap="checkinMap">
+		select a.* , b.teachername , c.coursename , d.username from checkin a , teacher b , course c , users d where a.teacherid = b.teacherid and a.courseid =
+		c.courseid and a.usersid = d.usersid
+		<if test="teacherid != null and '' != teacherid">
+			and a.teacherid = #{teacherid}
+		</if>
+		<if test="courseid != null and '' != courseid">
+			and a.courseid = #{courseid}
+		</if>
+		<if test="usersid != null and '' != usersid">
+			and a.usersid = #{usersid}
+		</if>
+		<if test="addtime != null and '' != addtime">
+			and a.addtime = #{addtime}
+		</if>
+		<if test="memo != null and '' != memo">
+			and a.memo = #{memo}
+		</if>
+	</select>
+	<!-- 按条件模糊查询 DAO通过id调用此配置 -->
+	<select id="getCheckinByLike" parameterType="checkin" resultMap="checkinMap">
+		select a.* , b.teachername , c.coursename , d.username from checkin a , teacher b , course c , users d where a.teacherid = b.teacherid and a.courseid =
+		c.courseid and a.usersid = d.usersid
+		<if test="teacherid != null and '' != teacherid">
+			and b.teachername like CONCAT('%', CONCAT(#{teacherid}, '%'))
+		</if>
+		<if test="courseid != null and '' != courseid">
+			and c.coursename like CONCAT('%', CONCAT(#{courseid}, '%'))
+		</if>
+		<if test="usersid != null and '' != usersid">
+			and d.username like CONCAT('%', CONCAT(#{usersid}, '%'))
+		</if>
+		<if test="addtime != null and '' != addtime">
+			and a.addtime like CONCAT('%', CONCAT(#{addtime}, '%'))
+		</if>
+		<if test="memo != null and '' != memo">
+			and a.memo like CONCAT('%', CONCAT(#{memo}, '%'))
+		</if>
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--  -->

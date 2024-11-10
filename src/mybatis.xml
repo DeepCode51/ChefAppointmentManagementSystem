@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias alias="admin" type="com.entity.Admin" />
+		<typeAlias alias="teacher" type="com.entity.Teacher" />
+		<typeAlias alias="users" type="com.entity.Users" />
+		<typeAlias alias="article" type="com.entity.Article" />
+		<typeAlias alias="cate" type="com.entity.Cate" />
+		<typeAlias alias="course" type="com.entity.Course" />
+		<typeAlias alias="card" type="com.entity.Card" />
+		<typeAlias alias="checkin" type="com.entity.Checkin" />
+		<typeAlias alias="orders" type="com.entity.Orders" />
+		<typeAlias alias="topic" type="com.entity.Topic" />
+		<typeAlias alias="equipment" type="com.entity.Equipment" />
+		<typeAlias alias="repair" type="com.entity.Repair" />
+		<typeAlias alias="broken" type="com.entity.Broken" />
+		<typeAlias alias="complains" type="com.entity.Complains" />
+		<typeAlias alias="bbs" type="com.entity.Bbs" />
+		<typeAlias alias="rebbs" type="com.entity.Rebbs" />
+	</typeAliases>
+	<mappers>
+		<mapper resource="mapper/admin.xml" />
+		<mapper resource="mapper/teacher.xml" />
+		<mapper resource="mapper/users.xml" />
+		<mapper resource="mapper/article.xml" />
+		<mapper resource="mapper/cate.xml" />
+		<mapper resource="mapper/course.xml" />
+		<mapper resource="mapper/card.xml" />
+		<mapper resource="mapper/checkin.xml" />
+		<mapper resource="mapper/orders.xml" />
+		<mapper resource="mapper/topic.xml" />
+		<mapper resource="mapper/equipment.xml" />
+		<mapper resource="mapper/repair.xml" />
+		<mapper resource="mapper/broken.xml" />
+		<mapper resource="mapper/complains.xml" />
+		<mapper resource="mapper/bbs.xml" />
+		<mapper resource="mapper/rebbs.xml" />
+	</mappers>
+</configuration>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--  -->

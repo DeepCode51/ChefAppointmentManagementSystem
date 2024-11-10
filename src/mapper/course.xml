@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 配置Mabatis映射文件 -->
+<mapper namespace="com.dao.CourseDAO">
+	<resultMap type="course" id="courseMap">
+		<id property="courseid" column="courseid" />
+		<result property="coursename" column="coursename" />
+		<result property="image" column="image" />
+		<result property="cateid" column="cateid" />
+		<result property="teacherid" column="teacherid" />
+		<result property="price" column="price" />
+		<result property="recommend" column="recommend" />
+		<result property="special" column="special" />
+		<result property="addtime" column="addtime" />
+		<result property="hits" column="hits" />
+		<result property="num" column="num" />
+		<result property="worktime" column="worktime" />
+		<result property="contents" column="contents" />
+		<result property="catename" column="catename" />
+		<result property="teachername" column="teachername" />
+	</resultMap>
+	<!-- 插入语句 DAO通过id调用此配置 -->
+	<insert id="insertCourse" parameterType="course">
+		insert into course(courseid , coursename , image , cateid , teacherid , price , recommend , special , addtime ,
+		hits , num , worktime , contents )
+		values(#{courseid} , #{coursename} , #{image} , #{cateid} , #{teacherid} , #{price} , #{recommend} , #{special} , #{addtime}
+		, #{hits} , #{num} , #{worktime}
+		, #{contents} )
+	</insert>
+	<!-- 更新语句 DAO通过id调用此配置 -->
+	<update id="updateCourse" parameterType="course">
+		update course set coursename=#{coursename} , image=#{image} , cateid=#{cateid} , teacherid=#{teacherid} ,
+		price=#{price} , recommend=#{recommend} ,
+		special=#{special} , addtime=#{addtime} , hits=#{hits} , num=#{num} , worktime=#{worktime} , contents=#{contents}
+		where courseid=#{courseid}
+	</update>
+	<!-- 按主键删除 DAO通过id调用此配置 -->
+	<delete id="deleteCourse" parameterType="String">
+		delete from course where courseid = #{courseid}
+	</delete>
+	<!-- 查询全部信息 DAO通过id调用此配置 -->
+	<select id="getAllCourse" resultMap="courseMap">
+		select a.* , b.catename , c.teachername from course a , cate b , teacher c where a.cateid = b.cateid and a.teacherid
+		= c.teacherid order by courseid desc
+	</select>
+	<select id="getCourseByNews" resultMap="courseMap">
+		select a.* , b.catename , c.teachername from course a , cate b , teacher c where a.cateid = b.cateid and a.teacherid
+		= c.teacherid order by hits desc limit 5
+	</select>
+
+	<select id="getCourseByHot" resultMap="courseMap">
+		select a.* , b.catename , c.teachername from course a , cate b , teacher c where a.cateid = b.cateid and a.teacherid
+		= c.teacherid order by hits desc limit 5
+	</select>
+
+	<select id="getCourseByCate" parameterType="String" resultMap="courseMap">
+		select a.* , b.catename , c.teachername from course a , cate b , teacher c where a.cateid = b.cateid and a.teacherid
+		= c.teacherid and a.cateid=#{cateid} order by hits desc limit 5
+	</select>
+	<!-- 按主键查询 DAO通过id调用此配置 -->
+	<select id="getCourseById" parameterType="String" resultMap="courseMap">
+		select a.* , b.catename , c.teachername from course a , cate b , teacher c where a.cateid =
+		b.cateid and a.teacherid = c.teacherid and courseid=#{courseid} order by
+		courseid desc
+	</select>
+	<!-- 按条件精确查询 DAO通过id调用此配置 -->
+	<select id="getCourseByCond" parameterType="course" resultMap="courseMap">
+		select a.* , b.catename , c.teachername from course a , cate b , teacher c where a.cateid = b.cateid and a.teacherid = c.teacherid
+		<if test="coursename != null and '' != coursename">
+			and a.coursename = #{coursename}
+		</if>
+		<if test="image != null and '' != image">
+			and a.image = #{image}
+		</if>
+		<if test="cateid != null and '' != cateid">
+			and a.cateid = #{cateid}
+		</if>
+		<if test="teacherid != null and '' != teacherid">
+			and a.teacherid = #{teacherid}
+		</if>
+		<if test="price != null and '' != price">
+			and a.price = #{price}
+		</if>
+		<if test="recommend != null and '' != recommend">
+			and a.recommend = #{recommend}
+		</if>
+		<if test="special != null and '' != special">
+			and a.special = #{special}
+		</if>
+		<if test="addtime != null and '' != addtime">
+			and a.addtime = #{addtime}
+		</if>
+		<if test="hits != null and '' != hits">
+			and a.hits = #{hits}
+		</if>
+		<if test="num != null and '' != num">
+			and a.num = #{num}
+		</if>
+		<if test="worktime != null and '' != worktime">
+			and a.worktime = #{worktime}
+		</if>
+		<if test="contents != null and '' != contents">
+			and a.contents = #{contents}
+		</if>
+	</select>
+	<!-- 按条件模糊查询 DAO通过id调用此配置 -->
+	<select id="getCourseByLike" parameterType="course" resultMap="courseMap">
+		select a.* , b.catename , c.teachername from course a , cate b , teacher c where a.cateid = b.cateid and a.teacherid = c.teacherid
+		<if test="coursename != null and '' != coursename">
+			and a.coursename like CONCAT('%', CONCAT(#{coursename}, '%'))
+		</if>
+		<if test="image != null and '' != image">
+			and a.image like CONCAT('%', CONCAT(#{image}, '%'))
+		</if>
+		<if test="cateid != null and '' != cateid">
+			and b.catename like CONCAT('%', CONCAT(#{cateid}, '%'))
+		</if>
+		<if test="teacherid != null and '' != teacherid">
+			and c.teachername like CONCAT('%', CONCAT(#{teacherid}, '%'))
+		</if>
+		<if test="price != null and '' != price">
+			and a.price like CONCAT('%', CONCAT(#{price}, '%'))
+		</if>
+		<if test="recommend != null and '' != recommend">
+			and a.recommend like CONCAT('%', CONCAT(#{recommend}, '%'))
+		</if>
+		<if test="special != null and '' != special">
+			and a.special like CONCAT('%', CONCAT(#{special}, '%'))
+		</if>
+		<if test="addtime != null and '' != addtime">
+			and a.addtime like CONCAT('%', CONCAT(#{addtime}, '%'))
+		</if>
+		<if test="hits != null and '' != hits">
+			and a.hits like CONCAT('%', CONCAT(#{hits}, '%'))
+		</if>
+		<if test="num != null and '' != num">
+			and a.num like CONCAT('%', CONCAT(#{num}, '%'))
+		</if>
+		<if test="worktime != null and '' != worktime">
+			and a.worktime like CONCAT('%', CONCAT(#{worktime}, '%'))
+		</if>
+		<if test="contents != null and '' != contents">
+			and a.contents like CONCAT('%', CONCAT(#{contents}, '%'))
+		</if>
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--  -->

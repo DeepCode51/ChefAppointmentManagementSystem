@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 配置Mabatis映射文件 -->
+<mapper namespace="com.dao.EquipmentDAO">
+	<resultMap type="equipment" id="equipmentMap">
+		<id property="equipmentid" column="equipmentid" />
+		<result property="eno" column="eno" />
+		<result property="equipname" column="equipname" />
+		<result property="productor" column="productor" />
+		<result property="image" column="image" />
+		<result property="useinfo" column="useinfo" />
+		<result property="buydate" column="buydate" />
+		<result property="price" column="price" />
+		<result property="status" column="status" />
+		<result property="contents" column="contents" />
+	</resultMap>
+	<!-- 插入语句 DAO通过id调用此配置 -->
+	<insert id="insertEquipment" parameterType="equipment">
+		insert into equipment(equipmentid , eno , equipname , productor , image , useinfo , buydate , price , status , contents ) values(#{equipmentid} , #{eno} ,
+		#{equipname} , #{productor} , #{image} , #{useinfo} , #{buydate} , #{price} , #{status} , #{contents} )
+	</insert>
+	<!-- 更新语句 DAO通过id调用此配置 -->
+	<update id="updateEquipment" parameterType="equipment">
+		update equipment set eno=#{eno} , equipname=#{equipname} , productor=#{productor} , image=#{image} , useinfo=#{useinfo} , buydate=#{buydate} , price=#{price} ,
+		status=#{status} , contents=#{contents} where equipmentid=#{equipmentid}
+	</update>
+	<!-- 按主键删除 DAO通过id调用此配置 -->
+	<delete id="deleteEquipment" parameterType="String">
+		delete from equipment where equipmentid = #{equipmentid}
+	</delete>
+	<!-- 查询全部信息 DAO通过id调用此配置 -->
+	<select id="getAllEquipment" resultMap="equipmentMap">
+		select a.* from equipment a order by equipmentid desc
+	</select>
+	<!-- 按主键查询 DAO通过id调用此配置 -->
+	<select id="getEquipmentById" parameterType="String" resultMap="equipmentMap">
+		select a.* from equipment a where equipmentid=#{equipmentid} order by equipmentid desc
+	</select>
+	<!-- 按条件精确查询 DAO通过id调用此配置 -->
+	<select id="getEquipmentByCond" parameterType="equipment" resultMap="equipmentMap">
+		select a.* from equipment a where 1=1
+		<if test="eno != null and '' != eno">
+			and a.eno = #{eno}
+		</if>
+		<if test="equipname != null and '' != equipname">
+			and a.equipname = #{equipname}
+		</if>
+		<if test="productor != null and '' != productor">
+			and a.productor = #{productor}
+		</if>
+		<if test="image != null and '' != image">
+			and a.image = #{image}
+		</if>
+		<if test="useinfo != null and '' != useinfo">
+			and a.useinfo = #{useinfo}
+		</if>
+		<if test="buydate != null and '' != buydate">
+			and a.buydate = #{buydate}
+		</if>
+		<if test="price != null and '' != price">
+			and a.price = #{price}
+		</if>
+		<if test="status != null and '' != status">
+			and a.status = #{status}
+		</if>
+		<if test="contents != null and '' != contents">
+			and a.contents = #{contents}
+		</if>
+	</select>
+	<!-- 按条件模糊查询 DAO通过id调用此配置 -->
+	<select id="getEquipmentByLike" parameterType="equipment" resultMap="equipmentMap">
+		select a.* from equipment a where 1=1
+		<if test="eno != null and '' != eno">
+			and a.eno like CONCAT('%', CONCAT(#{eno}, '%'))
+		</if>
+		<if test="equipname != null and '' != equipname">
+			and a.equipname like CONCAT('%', CONCAT(#{equipname}, '%'))
+		</if>
+		<if test="productor != null and '' != productor">
+			and a.productor like CONCAT('%', CONCAT(#{productor}, '%'))
+		</if>
+		<if test="image != null and '' != image">
+			and a.image like CONCAT('%', CONCAT(#{image}, '%'))
+		</if>
+		<if test="useinfo != null and '' != useinfo">
+			and a.useinfo like CONCAT('%', CONCAT(#{useinfo}, '%'))
+		</if>
+		<if test="buydate != null and '' != buydate">
+			and a.buydate like CONCAT('%', CONCAT(#{buydate}, '%'))
+		</if>
+		<if test="price != null and '' != price">
+			and a.price like CONCAT('%', CONCAT(#{price}, '%'))
+		</if>
+		<if test="status != null and '' != status">
+			and a.status like CONCAT('%', CONCAT(#{status}, '%'))
+		</if>
+		<if test="contents != null and '' != contents">
+			and a.contents like CONCAT('%', CONCAT(#{contents}, '%'))
+		</if>
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--  -->
